@@ -17,6 +17,7 @@ export async function POST(req) {
       )
     }
     // so now im here
+    //another changes
     // check for duplicate emails
     const duplicate = await User.findOne({ email: userData.email })
 
