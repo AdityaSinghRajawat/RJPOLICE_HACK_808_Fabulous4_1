@@ -13,9 +13,9 @@ const page = () => {
       <p>{session?.user?.email}</p>
       <p>{session?.user?.role}</p>
       <p>{session?.user?.name}</p>
-      <p>{session?.user?.picture}</p>
-      <p>{session?.user.image}</p>
+      <p>{session?.user?.image}</p>
       <p>{session?.user?.id}</p>
+
       <Image
         src={
           session?.user.image || "/user.png"

@@ -8,10 +8,43 @@ import GoogleProvider from "next-auth/providers/google"
 export const options = {
   providers: [
     GitHubProvider({
+
+      profile(profile) {
+        // console.log("Profile GitHub: ", profile)
+
+        let userRole = "GitHub User"
+        if (profile?.email == "adityasinghrajawat393@gmail.com") {
+          userRole = "admin"
+        }
+
+        return {
+          ...profile,
+          role: userRole,
+          image: profile.avatar_url
+        }
+      },
+
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
     GoogleProvider({
+
+      profile(profile) {
+        // console.log("Profile Google: ", profile)
+
+        let userRole = "Google User"
+        if (profile?.email == "adityasinghrajawat393@gmail.com") {
+          userRole = "admin"
+        }
+
+        return {
+          ...profile,
+          id: profile.sub,
+          role: userRole,
+          image: profile.picture
+        }
+      },
+
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
     }),
@@ -28,11 +61,15 @@ export const options = {
           type: "password",
           placeholder: "your password",
         },
+        role: {
+          label: "role:",
+        }
       },
       async authorize(credentials) {
         try {
           await connectToDB()
-          const { email, password } = credentials
+          const { email, password, role } = credentials
+          console.log(credentials);
           const existingUser = await User.findOne({ email })
 
           if (existingUser) {
