@@ -1,16 +1,22 @@
-// "use server"
-
 import mongoose, { Schema } from "mongoose"
-import { connectToDB } from "@/utils/database"
 
 const userSchema = new Schema(
   {
-    name: String,
-    email: String,
-    password: String,
+    name: {
+      type: String,
+      required: [true, 'name is required!'],
+    },
+    email: {
+      type: String,
+      unique: [true, 'Email already exists!'],
+      required: [true, 'Email is required!']
+    },
+    password: {
+      type: String
+    },
     role: {
       type: String,
-      default: "user",
+      default: "citizen",
     },
   },
   {

@@ -1,4 +1,5 @@
 import { withAuth } from "next-auth/middleware"
+import { useSession } from "next-auth/react"
 import { NextResponse } from "next/server"
 
 export default withAuth(
@@ -8,10 +9,20 @@ export default withAuth(
 
     if (
       req.nextUrl.pathname.startsWith("/dashboard") &&
-      req.nextauth.token.role != "admin"
+      req.nextauth.token.role
     ) {
+      return NextResponse.rewrite(new URL("/dashboard", req.url))
+
+    } else {
       return NextResponse.rewrite(new URL("/", req.url))
     }
+    // if (
+    //   req.nextUrl.pathname.startsWith("/dashboard") &&
+    //   req.nextauth.token.role != "admin"
+    // ) {
+    //   return NextResponse.rewrite(new URL("/", req.url))
+    // }
+
   },
   {
     callbacks: {
@@ -20,4 +31,4 @@ export default withAuth(
   }
 )
 
-export const config = { matcher: ["/dashboardff"] }
+export const config = { matcher: ["/dashboard"] }

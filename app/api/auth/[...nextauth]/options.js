@@ -69,7 +69,7 @@ export const options = {
         try {
           await connectToDB()
           const { email, password, role } = credentials
-          console.log(credentials);
+          // console.log(credentials);
           const existingUser = await User.findOne({ email })
 
           if (existingUser) {
