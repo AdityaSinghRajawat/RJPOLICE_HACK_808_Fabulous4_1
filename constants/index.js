@@ -1,4 +1,4 @@
-import { LayoutDashboard, File, FileBox } from "lucide-react";
+import { LayoutDashboard, File, FileBox, FileEdit, LucideFile } from "lucide-react";
 
 const policeRoutes = [
     {
@@ -9,8 +9,14 @@ const policeRoutes = [
     },
     {
         label: "Create Case",
-        icon: File,
+        icon: FileEdit,
         href: "/createcase",
+        color: "text-sky-500"
+    },
+    {
+        label: "Cases",
+        icon: LucideFile,
+        href: "/cases",
         color: "text-sky-500"
     },
 
