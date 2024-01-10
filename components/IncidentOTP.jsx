@@ -39,7 +39,7 @@ const IncidentOTP = ({ data, verifiedFunction }) => {
         }
     };
     const verifyOtp = async () => {
-        console.log(otp);
+        
         try {
             const response = await fetch("/api/verifyotp", {
                 method: "POST",
