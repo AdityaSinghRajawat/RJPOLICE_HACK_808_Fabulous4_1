@@ -16,7 +16,6 @@ export async function POST(req, res) {
             NextResponse.json({ message: 'No OTP found for this email' }, {status: 404,});
         }
 
-        // Compare the provided OTP with the stored hashed OTP in the database
         const isMatch = await bcrypt.compare(otp, storedOTP.otp);
 
         if (isMatch) {
