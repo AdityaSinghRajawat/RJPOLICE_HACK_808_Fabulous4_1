@@ -14,7 +14,7 @@ export const connectToDB = async () => {
     await mongoose.connect(process.env.MONGODB_URL, {
       dbName: "CyberJustice",
       // useNewUrlParser: true,
-      useUnifiedTopology: true,
+      // useUnifiedTopology: true,
     })
 
     isConnected = true

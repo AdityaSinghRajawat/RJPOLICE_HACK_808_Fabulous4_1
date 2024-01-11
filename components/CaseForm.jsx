@@ -162,7 +162,7 @@ const CaseForm = ({ handleChange, handleSubmit, formData, errors }) => {
                             className="w-full p-2 border rounded"
                         >
                             <option value="Pending">Pending</option>
-                            <option value="InProgress">In Progress</option>
+                            <option value="Investigating">Investigating</option>
                             <option value="Closed">Closed</option>
                         </select>
                         {errors.status && (

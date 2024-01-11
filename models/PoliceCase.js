@@ -1,6 +1,14 @@
 import mongoose from "mongoose"
 
 const policeCaseSchema = new mongoose.Schema({
+    // creator: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: "User",
+    // },
+    creator: {
+        type: String,
+        // ref: "User",
+    },
     caseNumber: {
         type: String,
         required: true,

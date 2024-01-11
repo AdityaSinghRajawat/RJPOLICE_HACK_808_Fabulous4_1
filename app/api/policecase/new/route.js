@@ -2,30 +2,32 @@ import { connectToDB } from "@/utils/database";
 import PoliceCase from "@/models/PoliceCase";
 
 export const POST = async (req) => {
-    const reportData = await req.json();
+    const caseData = await req.json();
 
     try {
 
         await connectToDB();
+        // console.log(caseData.userId);
 
         const newCase = new PoliceCase({
-            caseNumber: reportData.caseNumber,
-            reportedBy: reportData.reportedBy,
-            dateReported: reportData.dateReported,
-            incidentType: reportData.incidentType,
+            // creator: caseData.userId,
+            creator: caseData.userEmail,
+            caseNumber: caseData.caseNumber,
+            reportedBy: caseData.reportedBy,
+            dateReported: caseData.dateReported,
+            incidentType: caseData.incidentType,
             location: {
                 type: 'Point',
-                coordinates: [reportData.longitude, reportData.latitude],
+                coordinates: [caseData.longitude, caseData.latitude],
             },
-            description: reportData.description,
-            status: reportData.status,
-            assignedOfficer: reportData.assignedOfficer,
-            evidence: reportData.evidence,
+            description: caseData.description,
+            status: caseData.status,
+            assignedOfficer: caseData.assignedOfficer,
+            evidence: caseData.evidence,
         });
 
         // await newCase.save();
         console.log(newCase);
-        console.log(reportData.longitude);
 
         await newCase.save()
             .then(savedCase => {

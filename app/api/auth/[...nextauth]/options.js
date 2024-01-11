@@ -10,7 +10,7 @@ export const options = {
     GitHubProvider({
 
       profile(profile) {
-        // console.log("Profile GitHub: ", profile)
+        console.log("Profile GitHub: ", profile)
 
         let userRole = "citizen"
         if (profile?.email == "adityasinghrajawat393@gmail.com") {
@@ -30,7 +30,7 @@ export const options = {
     GoogleProvider({
 
       profile(profile) {
-        // console.log("Profile Google: ", profile)
+        console.log("Profile Google: ", profile)
 
         let userRole = "citizen"
         if (profile?.email == "adityasinghrajawat393@gmail.com") {
@@ -61,9 +61,6 @@ export const options = {
           type: "password",
           placeholder: "your password",
         },
-        role: {
-          label: "role:",
-        }
       },
       async authorize(credentials) {
         try {
@@ -92,8 +89,41 @@ export const options = {
     },
     async session({ session, token }) {
       if (session?.user) session.user.role = token.role
+
+      const sessionUser = await User.findOne({
+        email: session.user.email
+      });
+
+      if (sessionUser) session.user.id = sessionUser._id.toString();
+
       return session
+
     },
+    // async signIn({ profile }) {
+    // 	try {
+    // 		await connectToDB();
+
+    // 		const userExists = await User.findOne({
+    // 			email: profile.email
+    // 		});
+
+
+    // 		if (!userExists) {
+    // 			await User.create({
+    // 				name: profile.name,
+    // 				email: profile.email,
+    // 				image: profile.picture,
+    // 				role: "citizen"
+    // 			})
+    // 		}
+
+    // 		return true
+
+    // 	} catch (error) {
+    // 		console.log(error);
+    // 		return false;
+    // 	}
+    // },
   },
   pages: {
     signIn: "/login",

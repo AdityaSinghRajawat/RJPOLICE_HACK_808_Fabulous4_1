@@ -1,14 +1,18 @@
 "use client";
 import { useState } from 'react';
 import Sidebar from '@/components/Sidebar';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
 import CaseForm from '@/components/CaseForm';
+import { useSession } from 'next-auth/react';
+import { redirect, useRouter } from 'next/navigation';
 
 
 const PoliceCaseForm = () => {
+
+    const { data: session } = useSession();
+    const router = useRouter();
+
+    if (session?.user?.role == "citizen") redirect("/");
+
     const [formData, setFormData] = useState({
         caseNumber: '',
         reportedBy: '',
@@ -52,16 +56,32 @@ const PoliceCaseForm = () => {
             return;
         }
 
+        console.log(session?.user.id);
         const response = await fetch('/api/policecase/new', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify({
+                // userId: session?.user.id,
+                userEmail: session?.user.email,
+                caseNumber: formData.caseNumber,
+                reportedBy: formData.reportedBy,
+                dateReported: formData.dateReported,
+                incidentType: formData.incidentType,
+                longitude: formData.longitude,
+                latitude: formData.latitude,
+                description: formData.description,
+                status: formData.status,
+                assignedOfficer: formData.assignedOfficer,
+                evidence: formData.evidence,
+            }),
         });
+
 
         if (response.ok) {
             const data = await response.json();
+            router.push('/cases')
             console.log('Police case created:', data);
         } else {
             console.error('Error creating police case');
