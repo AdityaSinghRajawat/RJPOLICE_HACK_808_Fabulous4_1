@@ -19,7 +19,7 @@ const Navbar = () => {
                 <div className="flex gap-10">
 
                     {
-                        pathname == "/dashboard" && <MobileSidebar />
+                        pathname != "/" && <MobileSidebar />
                     }
 
                     <Image

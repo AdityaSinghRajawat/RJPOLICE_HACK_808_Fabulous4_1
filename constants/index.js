@@ -35,6 +35,12 @@ const citizenRoutes = [
         href: "/createreport",
         color: "text-sky-500"
     },
+    {
+        label: "Cases",
+        icon: LucideFile,
+        href: "/cases",
+        color: "text-sky-500"
+    },
 
 ]
 
