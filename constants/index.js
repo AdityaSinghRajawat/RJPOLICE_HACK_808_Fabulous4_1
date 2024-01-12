@@ -44,4 +44,5 @@ const citizenRoutes = [
 
 ]
 
+
 export { policeRoutes, citizenRoutes };

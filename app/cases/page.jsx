@@ -110,13 +110,13 @@ const page = () => {
     };
 
     return (
-        <>
+        <div className='mt-20'>
             <div className="h-full hidden md:flex md:flex-col md:fixed md:w-72 md:inset-y-0 z-[80] bg-gray-900">
                 <Sidebar />
             </div>
             <div className='grid justify-items-center'>
 
-                <form className='mb-10'>
+                <form className='mb-8'>
                     <select
                         id="status"
                         name="status"
@@ -145,7 +145,7 @@ const page = () => {
                     />
                 )}
             </div>
-        </>
+        </div>
     )
 }
 
